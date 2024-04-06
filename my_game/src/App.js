@@ -1,41 +1,25 @@
-import Input from "./components/Input";
-import Button from "./components/Button";
-import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import {ContextProvider} from "./context/ContextProvider";
+import Game from "./components/Game";
+import Aboutus from "./Pages/Aboutus";
+import Contact from "./Pages/Contact";
+import Login from "./components/Login";
 
 function App() {
-  const [nNumber, setNumber] = useState(Math.floor(Math.random() * 21));
-  const [nAnswer, setAnswer] = useState("");
-  const [msg, setMsg] = useState("");
-  let checkAns = () => {
-    if (nAnswer > 20 || nAnswer < 0)
-      setMsg("Invalid input, enter a number between 0 & 20");
-    else if (nAnswer > nNumber) setMsg("Number is too big..");
-    else if (nAnswer < nNumber) setMsg("Number is too small..");
-    else if (nAnswer === nNumber) {
-      document.querySelector("button[value='Check answer']").disabled = true;
-      setMsg(`Your guess is correct.. correct number is ${nNumber}`);
-    }
-  };
-
-  let resetGame = () => {
-    setNumber(Math.floor(Math.random() * 21));
-    setAnswer("");
-    setMsg("");
-    document.querySelector("button[value='Check answer']").disabled = false;
-  };
-
   return (
-    <>
-      <h1>Please guess a number between 1-20</h1>
-      <label>Guess a number</label>
-      <Input hint="Enter a number" nAnswer={nAnswer} setAnswer={setAnswer} />
-      <hr />
-      <Button buttonText="Check answer" clickHandler={checkAns} />
-      <Button buttonText="New game" clickHandler={resetGame} />
-      <hr />
-      <h1>{msg}</h1>
-    </>
+    <ContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<NavBar />}>
+            <Route path="aboutus" element={<Aboutus />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="game" element={<Game />} />
+            <Route path="login" element={<Login />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ContextProvider>
   );
 }
-
 export default App;
