@@ -1,4 +1,4 @@
-export default function Input({ hint, nAnswer,setAnswer }) {
+export default function Input({ hint, nAnswer, setAnswer }) {
     const changeHandler = (e) => {
         setAnswer(Number(e.target.value));
     }

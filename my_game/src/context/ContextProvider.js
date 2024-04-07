@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-const ctxObj = createContext();
+const ctxObj = createContext({ isLoggedin: false, setLogin: () =>{}});
 
 export function ContextProvider({ children }) {
   const [isLoggedin, setLogin] = useState(false);
